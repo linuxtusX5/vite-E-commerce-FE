@@ -18,7 +18,7 @@ export const ProductList: React.FC = () => {
     try {
       const response = await categoryAPI.getAll();
       setCategories(response.data);
-      console.log("Category API response:", response.data);
+      // console.log("Category API response:", response.data);
     } catch (error) {
       console.error("Error loading categories: ", error);
     }
@@ -28,7 +28,7 @@ export const ProductList: React.FC = () => {
     try {
       setLoading(true);
       const response = categorySlug
-        ? await productAPI.getByCategoty(categorySlug)
+        ? await productAPI.getByCategory(categorySlug)
         : await productAPI.getAll();
       //   setProducts(response.data);
 
@@ -47,9 +47,9 @@ export const ProductList: React.FC = () => {
 
   return (
     <div style={styles.container}>
-      <h1>Products</h1>
+      <h1 style={styles.title}>Featured Products</h1>
       <div style={styles.filterContainer}>
-        <label>Filter by category: </label>
+        <label style={styles.name}>Filter by category: </label>
         <select
           value={selectedCategory}
           onChange={(e) => handleCategoryChance(e.target.value)}
@@ -76,13 +76,25 @@ export const ProductList: React.FC = () => {
   );
 };
 const styles: { [key: string]: React.CSSProperties } = {
+  name: {
+    color: "#fff",
+  },
+  title: {
+    color: "#007bff",
+    fontSize: "45px",
+  },
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))",
     gap: "2rem",
     marginTop: "2rem",
   },
-  container: { maxWidth: "1200px", margin: "0 auto", padding: "1rem 2rem" },
+  container: {
+    maxWidth: "1200px",
+    margin: "0 auto",
+    padding: "1rem 2rem 5rem 2rem",
+    background: "#111",
+  },
   filterContainer: { margin: "2rem 0" },
   select: {
     padding: "0.5rem",
