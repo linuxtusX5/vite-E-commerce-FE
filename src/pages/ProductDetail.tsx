@@ -43,7 +43,7 @@ export const ProductDetail: React.FC = () => {
           )}
         </div>
         <div style={styles.detailInfo}>
-          <h1>{product.name}</h1>
+          <h1 style={styles.name}>{product.name}</h1>
           <p style={styles.category}>{product.category_name}</p>
           <p style={styles.price}>${product.price}</p>
           <p style={styles.description}>{product.description}</p>
@@ -53,7 +53,7 @@ export const ProductDetail: React.FC = () => {
           <button
             onClick={() => {
               addToCart(product);
-              alert("Added to cart!");
+              // alert("Added to cart!");
             }}
             disabled={product.stock === 0}
             style={product.stock > 0 ? styles.button : styles.buttonDisabled}
@@ -66,6 +66,13 @@ export const ProductDetail: React.FC = () => {
   );
 };
 const styles: { [key: string]: React.CSSProperties } = {
+  name: {
+    color: "#fff",
+  },
+  title: {
+    color: "#007bff",
+    fontSize: "45px",
+  },
   container: { maxWidth: "1200px", margin: "0 auto", padding: "1rem 2rem" },
   backButton: {
     padding: "0.5rem 1rem",
@@ -84,15 +91,15 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   detailImage: { height: "400px", background: "#f5f5f5" },
   image: { width: "100%", height: "100%", objectFit: "cover" },
-  category: { color: "#666", fontSize: "0.9rem", margin: "0 0 0.5rem 0" },
+  category: { color: "#ddd", fontSize: "0.9rem", margin: "0 0 0.5rem 0" },
   price: {
     fontSize: "1.2rem",
     fontWeight: "bold",
     color: "#007bff",
     margin: "0.5rem 0",
   },
-  description: { lineHeight: "1.6", margin: "1rem 0" },
-  stock: { fontSize: "0.9rem", color: "#666", margin: "0.5rem 0" },
+  description: { lineHeight: "1.6", margin: "1rem 0", color: "#ddd" },
+  stock: { fontSize: "0.9rem", color: "#ddd", margin: "0.5rem 0" },
   button: {
     width: "100%",
     padding: "0.75rem",
