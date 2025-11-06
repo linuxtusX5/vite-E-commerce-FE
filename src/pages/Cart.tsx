@@ -19,13 +19,27 @@ export const Cart: React.FC = () => {
   }
   return (
     <div style={styles.container}>
-      <h1>Shopping Cart</h1>
+      <h1 style={styles.title}>Shopping Cart</h1>
       <div style={styles.cartContainer}>
         {cart.map((item) => (
           <div key={item.product.id} style={styles.cartItem}>
             <div style={styles.cartIteminfo}>
-              <h3>{item.product.name}</h3>
-              <p>${item.product.price}</p>
+              {item.product.image ? (
+                <img
+                  src={item.product.image}
+                  alt={item.product.name}
+                  style={styles.image}
+                />
+              ) : (
+                <div style={styles.placeholder}>No Image</div>
+              )}
+              <h3 style={styles.name}>{item.product.name}</h3>
+              <p style={styles.name}>
+                &#8369;
+                {Number(item.product.price).toLocaleString("en-PH", {
+                  minimumFractionDigits: 2,
+                })}
+              </p>
             </div>
             <div style={styles.cartItemActions}>
               <input
@@ -46,13 +60,25 @@ export const Cart: React.FC = () => {
               </button>
             </div>
             <div style={styles.cartItemTotal}>
-              ${(parseFloat(item.product.price) * item.quantity).toFixed(2)}
+              {/* ${(parseFloat(item.product.price) * item.quantity).toFixed(2)} */}
+              &#8369;
+              {(Number(item.product.price) * item.quantity).toLocaleString(
+                "en-PH",
+                {
+                  minimumFractionDigits: 2,
+                }
+              )}
             </div>
           </div>
         ))}
       </div>
       <div style={styles.cartSummary}>
-        <h2>Total: ${getCartTotal().toFixed(2)}</h2>
+        <h2>
+          Total: &#8369;
+          {Number(getCartTotal()).toLocaleString("en-PH", {
+            minimumFractionDigits: 2,
+          })}
+        </h2>
         <button onClick={() => navigate("/checkout")} style={styles.button}>
           Proceed to Checkout
         </button>
@@ -61,6 +87,13 @@ export const Cart: React.FC = () => {
   );
 };
 const styles: { [key: string]: React.CSSProperties } = {
+  name: {
+    color: "#fff",
+  },
+  title: {
+    color: "#007bff",
+    fontSize: "45px",
+  },
   container: { maxWidth: "1200px", margin: "0 auto", padding: "1rem 2rem" },
   button: {
     width: "100%",
@@ -78,8 +111,9 @@ const styles: { [key: string]: React.CSSProperties } = {
     justifyContent: "space-between",
     alignItems: "center",
     padding: "1rem",
-    border: "1px solid #ddd",
+    // border: "1px solid #ddd",
     borderRadius: "4px",
+    background: "#1a1a1a",
     marginBottom: "1rem",
   },
   cartItemInfo: { flex: 1 },
@@ -98,6 +132,11 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: "4px",
     cursor: "pointer",
   },
-  cartItemTotal: { fontWeight: "bold", fontSize: "1.1rem" },
-  cartSummary: { marginTop: "2rem", textAlign: "right" },
+  cartItemTotal: { fontWeight: "bold", fontSize: "1.1rem", color: "#fff" },
+  cartSummary: { marginTop: "2rem", textAlign: "right", color: "#fff" },
+  image: {
+    width: "150px",
+    height: "150px",
+    borderRadius: "7px",
+  },
 };
