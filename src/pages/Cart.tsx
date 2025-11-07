@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { Footer } from "../components/Footer";
 
 export const Cart: React.FC = () => {
   const navigate = useNavigate();
@@ -18,72 +19,75 @@ export const Cart: React.FC = () => {
     );
   }
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Shopping Cart</h1>
-      <div style={styles.cartContainer}>
-        {cart.map((item) => (
-          <div key={item.product.id} style={styles.cartItem}>
-            <div style={styles.cartIteminfo}>
-              {item.product.image ? (
-                <img
-                  src={item.product.image}
-                  alt={item.product.name}
-                  style={styles.image}
+    <>
+      <div style={styles.container}>
+        <h1 style={styles.title}>Shopping Cart</h1>
+        <div style={styles.cartContainer}>
+          {cart.map((item) => (
+            <div key={item.product.id} style={styles.cartItem}>
+              <div style={styles.cartIteminfo}>
+                {item.product.image ? (
+                  <img
+                    src={item.product.image}
+                    alt={item.product.name}
+                    style={styles.image}
+                  />
+                ) : (
+                  <div style={styles.placeholder}>No Image</div>
+                )}
+                <h3 style={styles.name}>{item.product.name}</h3>
+                <p style={styles.name}>
+                  &#8369;
+                  {Number(item.product.price).toLocaleString("en-PH", {
+                    minimumFractionDigits: 2,
+                  })}
+                </p>
+              </div>
+              <div style={styles.cartItemActions}>
+                <input
+                  type="number"
+                  min="1"
+                  max={item.product.stock}
+                  value={item.quantity}
+                  onChange={(e) =>
+                    updateQuantity(item.product.id, parseInt(e.target.value))
+                  }
+                  style={styles.quantityInput}
                 />
-              ) : (
-                <div style={styles.placeholder}>No Image</div>
-              )}
-              <h3 style={styles.name}>{item.product.name}</h3>
-              <p style={styles.name}>
+                <button
+                  onClick={() => removeFromCart(item.product.id)}
+                  style={styles.removeButton}
+                >
+                  Remove
+                </button>
+              </div>
+              <div style={styles.cartItemTotal}>
+                {/* ${(parseFloat(item.product.price) * item.quantity).toFixed(2)} */}
                 &#8369;
-                {Number(item.product.price).toLocaleString("en-PH", {
-                  minimumFractionDigits: 2,
-                })}
-              </p>
+                {(Number(item.product.price) * item.quantity).toLocaleString(
+                  "en-PH",
+                  {
+                    minimumFractionDigits: 2,
+                  }
+                )}
+              </div>
             </div>
-            <div style={styles.cartItemActions}>
-              <input
-                type="number"
-                min="1"
-                max={item.product.stock}
-                value={item.quantity}
-                onChange={(e) =>
-                  updateQuantity(item.product.id, parseInt(e.target.value))
-                }
-                style={styles.quantityInput}
-              />
-              <button
-                onClick={() => removeFromCart(item.product.id)}
-                style={styles.removeButton}
-              >
-                Remove
-              </button>
-            </div>
-            <div style={styles.cartItemTotal}>
-              {/* ${(parseFloat(item.product.price) * item.quantity).toFixed(2)} */}
-              &#8369;
-              {(Number(item.product.price) * item.quantity).toLocaleString(
-                "en-PH",
-                {
-                  minimumFractionDigits: 2,
-                }
-              )}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <div style={styles.cartSummary}>
+          <h2>
+            Total: &#8369;
+            {Number(getCartTotal()).toLocaleString("en-PH", {
+              minimumFractionDigits: 2,
+            })}
+          </h2>
+          <button onClick={() => navigate("/checkout")} style={styles.button}>
+            Proceed to Checkout
+          </button>
+        </div>
       </div>
-      <div style={styles.cartSummary}>
-        <h2>
-          Total: &#8369;
-          {Number(getCartTotal()).toLocaleString("en-PH", {
-            minimumFractionDigits: 2,
-          })}
-        </h2>
-        <button onClick={() => navigate("/checkout")} style={styles.button}>
-          Proceed to Checkout
-        </button>
-      </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 const styles: { [key: string]: React.CSSProperties } = {
@@ -94,7 +98,11 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: "#007bff",
     fontSize: "45px",
   },
-  container: { maxWidth: "1200px", margin: "0 auto", padding: "1rem 2rem" },
+  container: {
+    maxWidth: "1200px",
+    margin: "0 auto",
+    padding: "1rem 2rem 3rem 2rem",
+  },
   button: {
     width: "100%",
     padding: "0.75rem",
