@@ -14,7 +14,7 @@ export const Navbar: React.FC = () => {
         </Link>
         <div style={styles.links}>
           <Link to="/" style={styles.link}>
-            Products
+            Home
           </Link>
           <Link to="#" style={styles.link}>
             About
@@ -33,9 +33,13 @@ export const Navbar: React.FC = () => {
 };
 const styles: { [key: string]: React.CSSProperties } = {
   nav: {
-    background: "#000",
+    background: "rgba(0, 0, 0, 0.4)",
+    backdropFilter: "blur(8px)",
     color: "#fff",
     padding: "1rem 0",
+    position: "sticky",
+    zIndex: 1000,
+    top: 0,
   },
   container: {
     maxWidth: "1200px",

@@ -18,7 +18,7 @@ export const categoryAPI = {
 export const productAPI = {
   getAll: () => api.get<Product[]>("/products/"),
   getBySlug: (slug: string) => api.get<Product>(`/products/${slug}/`),
-  getByCategoty: (categorySlug: string) =>
+  getByCategory: (categorySlug: string) =>
     api.get<Product[]>(`/products/by_category/?category=${categorySlug}`),
 };
 

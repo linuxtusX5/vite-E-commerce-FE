@@ -56,10 +56,10 @@ export const Checkout: React.FC = () => {
 
   return (
     <div style={styles.container}>
-      <h1>Checkout</h1>
+      <h1 style={styles.title}>Checkout</h1>
       <div style={styles.checkoutContainer}>
         <div style={styles.checkoutForm}>
-          <h2>Shipping Information</h2>
+          <h2 style={styles.name}>Shipping Information</h2>
           <form onSubmit={handleSubmit}>
             <input
               type="email"
@@ -137,12 +137,20 @@ export const Checkout: React.FC = () => {
                 {item.product.name} x {item.quantity}
               </span>
               <span>
-                ${(parseFloat(item.product.price) * item.quantity).toFixed(2)}
+                &#8369;
+                {Number(item.product.price).toLocaleString("en-PH", {
+                  minimumFractionDigits: 2,
+                })}
               </span>
             </div>
           ))}
           <div style={styles.summaryTotal}>
-            <strong>Total: ${getCartTotal().toFixed(2)}</strong>
+            <strong>
+              Total: &#8369;
+              {Number(getCartTotal()).toLocaleString("en-PH", {
+                minimumFractionDigits: 2,
+              })}
+            </strong>
           </div>
         </div>
       </div>
@@ -150,9 +158,21 @@ export const Checkout: React.FC = () => {
   );
 };
 const styles: { [key: string]: React.CSSProperties } = {
-  container: { maxWidth: "1200px", margin: "0 auto", padding: "1rem 2rem" },
+  name: {
+    color: "#fff",
+  },
+  title: {
+    color: "#007bff",
+    fontSize: "45px",
+  },
+  container: {
+    maxWidth: "1200px",
+    margin: "0 auto",
+    padding: "1rem 2rem",
+    // background: "#fff",
+  },
   button: {
-    width: "100%",
+    width: "80%",
     padding: "0.75rem",
     background: "#007bff",
     color: "white",
@@ -169,7 +189,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   checkoutForm: {},
   input: {
-    width: "100%",
+    width: "80%",
     padding: "0.75rem",
     marginBottom: "1rem",
     borderRadius: "4px",
@@ -178,6 +198,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   orderSummary: {
     border: "1px solid #ddd",
+    color: "#fff",
     borderRadius: "8px",
     padding: "1.5rem",
     height: "fit-content",

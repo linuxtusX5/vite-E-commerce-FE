@@ -61,6 +61,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   container: {
     maxWidth: "100%",
     background: "#1a1a1a",
+    padding: "1rem 2rem",
   },
   container2: {
     maxWidth: "1200px",
