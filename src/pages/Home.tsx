@@ -1,8 +1,13 @@
 import React from "react";
 import Marquee from "react-fast-marquee";
 import { ProductList } from "./ProductList";
+import ProductReviews from "../components/ProductReviews";
+import { useNavigate } from "react-router-dom";
+import { StayUpdated } from "../components/StayUpdated";
+import { Footer } from "../components/Footer";
 
 export const Home: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div style={styles.hero}>
@@ -12,11 +17,15 @@ export const Home: React.FC = () => {
           style={styles.banner}
         />
         <div style={styles.overlay}>
-          <h1 style={styles.title}>Welcome to TechShop</h1>
+          <h1 style={styles.title}>
+            Future <span style={{ color: "#007bff" }}>TechShop</span> LifeStyle
+          </h1>
           <p style={styles.subtitle}>
             Discover the best deals on your favorite tech
           </p>
-          <button style={styles.button}>Shop Now</button>
+          <button onClick={() => navigate("/products/")} style={styles.button}>
+            Shop Now
+          </button>
         </div>
       </div>
       <div style={styles.marqueeContainer}>
@@ -31,6 +40,9 @@ export const Home: React.FC = () => {
         </Marquee>
       </div>
       <ProductList />
+      <ProductReviews />
+      <StayUpdated />
+      <Footer />
     </>
   );
 };
@@ -39,8 +51,9 @@ const styles: { [key: string]: React.CSSProperties } = {
   hero: {
     position: "relative",
     width: "100%",
-    height: "80vh",
+    height: "100vh",
     overflow: "hidden",
+    marginTop: "-100px",
   },
   banner: {
     width: "100%",
@@ -63,7 +76,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     textAlign: "center",
   },
   title: {
-    fontSize: "3rem",
+    fontSize: "4rem",
     fontWeight: "bold",
     marginBottom: "1rem",
   },
@@ -82,7 +95,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     transition: "background 0.3s",
   },
   marqueeContainer: {
-    backgroundColor: "#111",
+    backgroundColor: "#1a1a1a",
     color: "#fff",
     padding: "1rem 0",
     fontSize: "1.1rem",
